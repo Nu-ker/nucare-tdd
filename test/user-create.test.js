@@ -14,18 +14,18 @@ let inputUser = {
 	age: 25,
 	sex: 'male',
 	status: true,	
-	activity: 1.2,	
+	activity: 1.2,
 };
 
-describe('Get Create User API: POST', () => {	
+describe('Create User API: POST', () => {	
 	it('should generate a generic application response', (done) => {
 		chai.request('https://us-central1-nu-ker-fox.cloudfunctions.net/User')
 		.post('/')
-		.set('uid', '123456')
+		.set('uid', '00001')
 		.type('form')
 		.send(inputUser)
 		.end((err, response) => {
-				expect(response.status).to.equal(200);          				
+				expect(response.status).to.equal(00);
 				expect(err).to.be.null;
 				done();
 			})

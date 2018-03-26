@@ -7,8 +7,7 @@ chai.use(chaiHttp);
 
 const uid = '65e7cf5'
 
-
-describe('Update User API: PUT', () => {	
+describe('Delete User API: DEL', () => {	
 	it('should generate a generic application response', (done) => {
 		chai.request('https://us-central1-nu-ker-fox.cloudfunctions.net/User')		
 		.del('/')

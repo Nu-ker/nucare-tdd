@@ -16,8 +16,8 @@
     "karma-nyan-reporter": "^0.2.5",
     "superagent": "^3.8.2"
   },
-  "scripts": {
-    "test": "mocha -R nyan --timeout=3000"    
+  "scripts": {    
+    "test": "mocha --timeout=7000"    
   },
   "author": "",
   "license": "ISC"

@@ -17,7 +17,8 @@
     "superagent": "^3.8.2"
   },
   "scripts": {    
-    "test": "mocha --timeout=7000"    
+    "test": "mocha --watch --timeout=7000",
+    "testing": "mocha -R nyan --timeout=7000"    
   },
   "author": "",
   "license": "ISC"

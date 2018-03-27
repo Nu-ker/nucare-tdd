@@ -8,11 +8,11 @@ chai.use(chaiHttp);
 
 const uid = '65e7cf5';
 const signin = {
-	email: 'ariefmandracom',	
+	email: 'ariefmandracoms',	
 };
 
 describe('Get User Login API: GET', () => {	
-	it('should generate a generic application response', (done) => {
+	it('login success', (done) => {
 		chai.request('https://us-central1-nu-ker-fox.cloudfunctions.net/UserLogin')		
 		.get('/')
 		.type('form')
@@ -27,5 +27,22 @@ describe('Get User Login API: GET', () => {
       done(err)
     })    
 	});
+
+	it('login fail', (done) => {
+		chai.request('https://us-central1-nu-ker-fox.cloudfunctions.net/UserLogin')		
+		.get('/')
+		.type('form')
+		.set('uid', `${uid}`)		
+		.send(signin)		
+    .end(function (err, response) {
+			if (err) {
+				return done(err);
+			}
+			expect(err).to.be.null;
+    	expect(response.status).to.equal(400);              	
+      done(err)
+    })    
+	});
+
 });
 

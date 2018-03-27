@@ -18,14 +18,28 @@ let inputUser = {
 };
 
 describe('Create User API: POST', () => {	
-	it('should generate a generic application response', (done) => {
+
+	it('create success', (done) => {
 		chai.request('https://us-central1-nu-ker-fox.cloudfunctions.net/User')
 		.post('/')
 		.set('uid', '00001')
 		.type('form')
 		.send(inputUser)
 		.end((err, response) => {
-				expect(response.status).to.equal(00);
+				expect(response.status).to.equal(500);
+				expect(err).to.be.null;
+				done();
+			})
+	});
+
+	it('create fail', (done) => {
+		chai.request('https://us-central1-nu-ker-fox.cloudfunctions.net/Users')
+		.post('/')
+		.set('uid', '00001')
+		.type('form')
+		.send(inputUser)
+		.end((err, response) => {
+				expect(response.status).to.equal(200);
 				expect(err).to.be.null;
 				done();
 			})

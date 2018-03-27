@@ -18,7 +18,7 @@ const updateUser = {
 };
 
 describe('Update User API: PUT', () => {	
-	it('should generate a generic application response', (done) => {
+	it('update success', (done) => {
 		chai.request('https://us-central1-nu-ker-fox.cloudfunctions.net/User')
 		.put('/')
 		.set('uid', `${uid}`)
@@ -34,5 +34,23 @@ describe('Update User API: PUT', () => {
 			done();
 		})
 	});
+
+	it('update fail', (done) => {
+		chai.request('https://us-central1-nu-ker-fox.cloudfunctions.net/User')
+		.put('/')
+		.set('uid', `wrongUid`)
+		.type('form')
+		.send(updateUser)
+		.end((err, response) => {
+			if (err) {
+				return done(err);
+			}
+			expect(err).to.be.null;
+			expect(response.status).to.equal(200);          				
+			
+			done();
+		})
+	});
+
 });
 

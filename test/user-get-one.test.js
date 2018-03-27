@@ -19,12 +19,12 @@ describe('Get One Users API: GET', () => {
 			const appResponse = response.body;			
 			expect(err).to.be.null;									
 			expect(response.status).to.equal(200);  
-			should.exist(appResponse);							
+			should.exist(appResponse);				
 			done();
 		});
 	});
 
-	it('response should be object', (done) => {
+	it('should be object', (done) => {
 		chai.request('https://us-central1-nu-ker-fox.cloudfunctions.net/User')
 		.get('/')
 		.set('uid', `${uid}`)
@@ -63,5 +63,37 @@ describe('Get One Users API: GET', () => {
 			done();
 		});
 	});
+
+	it('response error wrong get user', (done) => {
+		chai.request('https://us-central1-nu-ker-fox.cloudfunctions.net/User')
+		.get('/')
+		.set('uid', `1234567`)
+		.end((err, response) => {
+			if (err) {
+				return done(err);
+			}									
+			expect(err).to.be.null;	
+			expect(response.status).to.equal(200);						
+			done();
+		});
+	});
+
+	it('response error value null', (done) => {
+		chai.request('https://us-central1-nu-ker-fox.cloudfunctions.net/User')
+		.get('/')
+		.set('uid', `1234567`)
+		.end((err, response) => {
+			if (err) {
+				return done(err);
+			}			
+			const appResponse = response.body;		
+			let result = Object.values(appResponse)			
+			expect(err).to.be.null;	
+			expect(response.status).to.equal(200);			
+			expect(result[1]).to.be.null;	
+			done();
+		});
+	});
+	
 		
 });

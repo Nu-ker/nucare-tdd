@@ -17,15 +17,44 @@ describe('Get All Food API: GET', () => {
 			if (err) {
 				return done(err);
 			}
-			const appResponse = response.body;									
-			let result =Object.values(appResponse)
+			const appResponse = response.body;												
 			expect(err).to.be.null;
 			expect(response.status).to.equal(200);  
-			should.exist(appResponse);
-			appResponse.should.be.an('object');
+			should.exist(appResponse);			
 			done();
 		});
 	});
+
+	it('should have value', (done) => {
+		chai.request('https://us-central1-nu-ker-fox.cloudfunctions.net/Food')
+		.get('/')
+		.set('uid', `${uid}`)
+		.end((err, response) => {
+			if (err) {
+				return done(err);
+			}
+			const appResponse = response.body;												
+			expect(err).to.be.null;						
+			Object.keys(appResponse).length.should.be.equal(0);											
+			done();
+		});
+	});
+
+	it('should be object', (done) => {
+		chai.request('https://us-central1-nu-ker-fox.cloudfunctions.net/Food')
+		.get('/')
+		.set('uid', `${uid}`)
+		.end((err, response) => {
+			if (err) {
+				return done(err);
+			}
+			const appResponse = response.body;												
+			expect(err).to.be.null;						
+			appResponse.should.be.an('object');																			
+			done();
+		});
+	});
+		
 
 	// it('should have right property', (done) => {
 	// 	chai.request('https://us-central1-nu-ker-fox.cloudfunctions.net/User')
@@ -50,5 +79,38 @@ describe('Get All Food API: GET', () => {
 	// 		done();
 	// 	});
 	// });
+
+	it('response error wrong get foods', (done) => {
+		chai.request('https://us-central1-nu-ker-fox.cloudfunctions.net/Food')
+		.get('/')
+		.set('uid', `error`)
+		.end((err, response) => {
+			if (err) {
+				return done(err);
+			}			
+			const appResponse = response.body;																			
+			expect(err).to.be.null;
+			should.exist(appResponse);			
+			expect(response.status).to.equal(200);					  			
+			done();
+		});
+	});
+
+	it('response error value null', (done) => {
+		chai.request('https://us-central1-nu-ker-fox.cloudfunctions.net/Food')
+		.get('/')
+		.set('uid', `error`)
+		.end((err, response) => {
+			if (err) {
+				return done(err);
+			}			
+			const appResponse = response.body;												
+			const result = Object.values(appResponse)						
+			expect(err).to.be.null;			
+			expect(response.status).to.equal(200);
+			expect(result).to.be.eql([]);				  			
+			done();
+		});
+	});
 
 });
